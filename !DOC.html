@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>৫০০০ ছবি + জলজল তরঙ্গ</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      height: 100%;
+      background: white;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+      background: transparent;
+    }
+
+    header {
+      background: #0a2a59;
+      padding: 15px 20px;
+      color: #00ccff;
+      text-shadow: 0 0 8px #00ccff;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    .header-content {
+      background:white;
+      color: #black;
+      position: sticky;
+      top:0px;
+      text-align: center;
+      padding: 20px;
+      z-index: 10;}
+
+    .header-content h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    .header-content h2 {
+      margin: 5px 0 15px;
+      font-weight: normal;
+      font-size: 18px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 10px;
+    }
+
+    .nav .item a {
+      color: blue;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .nav .item a:hover {
+      color: #ffffff;
+    }
+
+    #container {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 15px;
+      z-index: 5;
+      position: relative;
+    }
+
+    #container img {
+      width: 100%;
+      height: 200px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 0 15px rgba(0, 180, 255, 0.6);
+      background: #001122;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #container img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.9);
+      z-index: 10;
+    }
+
+    footer {
+      text-align: center;
+      color: #99ddff;
+      padding: 15px;
+      background: #0a2a59;
+      font-size: 14px;
+      position: sticky;
+      bottom: 0;
+      z-index: 10;
+    }
+    .box2 {position: relative;   
+      margin: 50px; 
+            left: 100px;
+             background: orange;
+             color: red; }
+.box1 {     position: absolute; 
+            margin: 50px; 
+            left: 100px;
+            background: rgba(0, 180, 255, 0.6);
+            color: red;
+            text-align: center;}
+  </style>
+</head>
+<body>
+
+  <div class="header-content">
+    <h1>All time</h1>
+    <h2>Your presence in the world of Hafizul's dreams and aspirations is a joy!</h2>
+    <div class="nav">
+      <div class="item"><a href="#">🏠︎ Home</a></div>
+      <div class="item"><a href="#">✉︎ Contact</a></div>
+      <div class="item"><a href="#">👨‍🎓 Skills</a></div>
+    </div>
+  </div>
+
+  <canvas id="floatingWave"></canvas>
+
+  <header>I love all users</header>
+
+  <div id="container"></div> 
+    <div class="box2">
+    <p><a href="https://www.google.com" target="_blank">Google</a></p>
+    <p><a href="https://gotranscript.com" target="_blank">GoTranscript</a></p>
+    <p><a href="https://chatgpt.com" target="_blank">ChatGPT</a></p>
+    <p><a href="https://www.youtube.com" target="_blank">YouTube</a></p>
+    <p><a href="https://www.47brand.com" target="_blank">47Brand</a></p>
+    <p><a href="https://developers.google.com" target="_blank">Google Developers</a></p>
+    <p><a href="https://ai.google.dev/gemini-api/docs/api-key" target="_blank">AI Google Dev</a></p>
+  </div>
+
+  <button onclick="alert('ধন্যবাদ হাফিজুল!')">আমাকে ক্লিক করো</button>
+
+  <div class="box1">
+    <h3>আমি কী শিখেছি:</h3>
+    <ul>
+      <li>HTML</li>
+      <li>ছবি ও লিংক</li>
+      <li>বোতাম</li>
+      <li>টেবিল ও ফর্ম</li>
+    </ul>
+  </div>
+
+  <h3>আমার পরিচিতি টেবিল:</h3>
+  <table>
+    <tr>
+      <th>নাম</th>
+      <th>বয়স</th>
+      <th>পছন্দ</th>
+    </tr>
+    <tr>
+      <td>হাফিজুল</td>
+      <td>১৬</td>
+      <td>ডিজাইন শেখা</td>
+    </tr>
+  </table>
+
+  <h3>যোগাযোগ করুন:</h3>
+  <form>
+    <label>তোমার নাম:</label><br>
+    <input type="text" name="name"><br><br>
+
+    <label>তোমার ইমেইল:</label><br>
+    <input type="email" name="email"><br><br>
+
+    <label>বার্তা:</label><br>
+    <textarea name="message" rows="4" cols="30"></textarea><br><br>
+
+    <input type="submit" value="Submit">
+  </form>
+<script>
+  document.querySelector("form").addEventListener("submit", function(e) {
+    e.preventDefault(); // পেজ রিলোড ঠেকায়
+
+    const name = document.querySelector("input[name='name']").value;
+    const email = document.querySelector("input[name='email']").value;
+    const message = document.querySelector("textarea[name='message']").value;
+
+    // লোকাল স্টোরেজে সংরক্ষণ
+    localStorage.setItem("user_name", name);
+    localStorage.setItem("user_email", email);
+    localStorage.setItem("user_message", message);
+
+    alert("তোমার তথ্য LocalStorage-এ সেভ হয়েছে!");
+  });
+</script>
+
+  <footer>&copy; 2025 HafijulHK</footer>
+
+  <script>
+    const container = document.getElementById('container');
+    for (let i = 1; i <= 5000; i++) {
+      const img = document.createElement('img');
+      img.src = `https://picsum.photos/300/200?random=${i}`;
+      img.alt = `Image ${i}`;
+      img.loading = "lazy";
+      container.appendChild(img);
+    }
+
+    (() => {
+      const canvas = document.getElementById('floatingWave');
+      const ctx = canvas.getContext('2d');
+      let W, H;
+
+      function resize() {
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width = W;
+        canvas.height = H;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      let waveY = H + 50;
+      let direction = -1;
+      const speed = 0.4;
+
+      function drawWave(time) {
+        ctx.clearRect(0, 0, W, H);
+
+        const gradient = ctx.createLinearGradient(0, waveY - 100, 0, waveY + 100);
+        gradient.addColorStop(0, 'rgba(0, 100, 255, 0)');
+        gradient.addColorStop(0.5, 'rgba(0, 180, 255, 0.3)');
+        gradient.addColorStop(1, 'rgba(0, 255, 255, 0.6)');
+
+        ctx.beginPath();
+        ctx.moveTo(0, waveY);
+        const waveHeight = 30;
+
+        for (let x = 0; x <= W; x++) {
+          const y = waveY + Math.sin(x * 0.02 + time * 0.002) * waveHeight;
+          ctx.lineTo(x, y);
+        }
+
+        ctx.lineTo(W, H);
+        ctx.lineTo(0, H);
+        ctx.closePath();
+
+        ctx.fillStyle = gradient;
+        ctx.shadowColor = 'rgba(0,200,255,0.6)';
+        ctx.shadowBlur = 30;
+        ctx.fill();
+
+        for (let i = 0; i < 20; i++) {
+          const x = Math.random() * W;
+          const y = waveY + Math.random() * 50 - 25;
+          const radius = Math.random() * 2;
+          const alpha = Math.random() * 0.8 + 0.2;
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(180,255,255,${alpha.toFixed(2)})`;
+          ctx.shadowColor = 'rgba(180,255,255,0.6)';
+          ctx.shadowBlur = 10;
+          ctx.fill();
+        }
+
+        waveY += direction * speed;
+        if (waveY <= 0) direction = 1;
+        if (waveY >= H + 50) direction = -1;
+
+        requestAnimationFrame(drawWave);
+      }
+
+      drawWave();
+    })();
+  </script>
+
+</body>
+</html>
